@@ -35,7 +35,8 @@ namespace DroneApi.Repositories
         }
         public DbSet<Drone> Drones { get; set; }
         public DbSet<Medication> Medications { get; set; }
-      
+        public DbSet<DroneBatteryLog> DroneBatteryLogs { get; set; }
+
     }
 }
 
