@@ -22,7 +22,7 @@ namespace DroneApi.Repositories
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-
+            modelBuilder.Entity<Medication>().Property(e => e.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Medication>()
            .HasOne(p => p.Drone)
            .WithMany(b => b.Medications)
