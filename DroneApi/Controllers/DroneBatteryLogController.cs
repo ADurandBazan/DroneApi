@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DroneApi.Controllers
 {
+    [ApiController]
+    [Route("api/dronebatterylogs")]
     public class DroneBatteryLogController : ControllerBase
     {
         private readonly IDroneBatteryLogService _droneBatteryLogService;
