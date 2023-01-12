@@ -36,6 +36,9 @@ services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 services.AddScoped<IDroneService, DroneService>();
 services.AddScoped<IDroneRepository, DroneRepository>();
 
+services.AddScoped<IDroneBatteryLogService, DroneBatteryLogService>();
+services.AddScoped<IDroneBatteryLogRepository, DroneBatteryLogRepository>();
+
 services.AddSwaggerGen();
 
 var app = builder.Build();
