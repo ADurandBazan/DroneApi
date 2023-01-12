@@ -13,7 +13,8 @@ namespace DroneApi.Services.Maps
             CreateMap<Drone, DroneDto>();
 
             // MedicationDto -> Medication
-            CreateMap<MedicationDto, Medication>();
+            CreateMap<MedicationDto, Medication>()
+                 .ForMember(dst => dst.Id, opt => opt.MapFrom(a => 0));
             // Medication -> MedicationDto
             CreateMap<Medication, MedicationDto>();
 
