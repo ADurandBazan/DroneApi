@@ -3,6 +3,7 @@ using DroneApi.Repositories;
 using DroneApi.Repositories.IRepository;
 using DroneApi.Repositories.Repository;
 using DroneApi.Services.IService;
+using DroneApi.Services.ScheulderTaskServices;
 using DroneApi.Services.Service;
 using System.Text.Json.Serialization;
 
@@ -38,6 +39,7 @@ services.AddScoped<IDroneRepository, DroneRepository>();
 
 services.AddScoped<IDroneBatteryLogService, DroneBatteryLogService>();
 services.AddScoped<IDroneBatteryLogRepository, DroneBatteryLogRepository>();
+services.AddHostedService<CheckDroneBateryTask>();
 
 services.AddSwaggerGen();
 
