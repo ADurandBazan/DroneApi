@@ -27,17 +27,7 @@ namespace DroneApi.Controllers
             });
         }
        
-        [HttpGet("getmedications/{id}")]
-        public async Task<IActionResult> GetMedicationsById(int id)
-        {
-            var medications = await _droneService.GetMedicationsByIdAsync(id);
-            return Ok(new
-            {
-                success = true,
-                medications
-            });
-        }
-        [HttpGet("batterycheck/{id}")]
+       [HttpGet("batterycheck/{id}")]
         public async Task<IActionResult> GetBatteryCapacityById(int id)
         {
             var battery = await _droneService.GetBatteryCapacityByIdAsync(id);
@@ -85,6 +75,31 @@ namespace DroneApi.Controllers
             await _droneService.DeleteDroneAsync(id);
 
             return Ok(new { success = true, message = "Drone deleted" });
+        }
+
+        [HttpGet("getmedications/{id}")]
+        public async Task<IActionResult> GetMedicationsById(int id)
+        {
+            var medications = await _droneService.GetMedicationsByIdAsync(id);
+            return Ok(new
+            {
+                success = true,
+                medications
+            });
+        }
+
+        [HttpPost("loadmedication/{id}")]
+        public async Task<IActionResult> LoadMedicationsById(int id, MedicationDto medicationDto)
+        {
+            await _droneService.LoadMedicationById(id, medicationDto);
+            return Ok();
+        }
+       
+        [HttpPost("loadmedicationlist/{id}")]
+        public async Task<IActionResult> LoadMedicationsById(int id, List<MedicationDto> Medications)
+        {
+            await _droneService.LoadMedicationsById(id, Medications);
+            return Ok();
         }
     }
 }

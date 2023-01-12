@@ -84,6 +84,61 @@ namespace DroneApi.Services.Service
             return null;
         }
 
+        public async Task LoadMedicationById(int id, MedicationDto medicationDto)
+        {
+            var drone = await _droneRepository.GetDroneByIdAsync(id);
+            if (drone == null)
+                throw new AppException("Drone not found");
+            else if (drone.BatteryCapacity < 25)
+                throw new AppException("Drone don't ready for loading. Battery level in '" + drone.BatteryCapacity);
+
+            else
+            {
+                var state = drone.State;
+                switch (state)
+                {
+                    case DroneState.DELIVERING:
+                        throw new AppException("Drone is deliverig");
+                    case DroneState.RETURNING:
+                        throw new AppException("Drone is returning");
+                    default:
+                        drone.State = DroneState.LOADING;
+                        var medication = _mapper.Map<Medication>(medicationDto);
+                        drone.AddMedication(medication);
+                        await _droneRepository.UpdateDroneAsync(drone);
+                        break;
+                }
+            }
+        }
+
+        public async Task LoadMedicationsById(int id, List<MedicationDto> medicationsDto)
+        {
+            var drone = await _droneRepository.GetDroneByIdAsync(id);
+            if (drone == null)
+                throw new AppException("Drone not found");
+            else if (drone.BatteryCapacity < 25)
+                throw new AppException("Drone don't ready for loading. Battery level in '" + drone.BatteryCapacity);
+
+            else
+            {
+                var state = drone.State;
+                switch (state)
+                {
+                    case DroneState.DELIVERING:
+                        throw new AppException("Drone is deliverig");
+                    case DroneState.RETURNING:
+                        throw new AppException("Drone is returning");
+                    default:
+                        var medications = _mapper.Map<List<Medication>>(medicationsDto);
+                        drone.AddMedications(medications);
+                        await _droneRepository.UpdateDroneAsync(drone);
+                        break;
+                }
+            }
+
+
+        }
+
 
     }
 }
