@@ -1,11 +1,42 @@
+using DroneApi.Helpers;
+using DroneApi.Repositories;
+using DroneApi.Repositories.IRepository;
+using DroneApi.Repositories.Repository;
+using DroneApi.Services.IService;
+using DroneApi.Services.Service;
+using System.Text.Json.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var services = builder.Services;
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddEndpointsApiExplorer();
+
+services.AddDbContext<DataContext>();
+services.AddCors();
+services.AddControllers().AddJsonOptions(x =>
+{
+    // serialize enums as strings in api responses (e.g. Role)
+    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+
+    // ignore omitted parameters on models to enable optional params (e.g. User update)
+    x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
+});
+services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+
+services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
+services.AddScoped<IDroneService, DroneService>();
+services.AddScoped<IDroneRepository, DroneRepository>();
+
+services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -22,4 +53,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// global error handler
+app.UseMiddleware<ErrorHandlerMiddleware>();
+
 app.Run();
+
