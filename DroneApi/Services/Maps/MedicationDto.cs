@@ -6,7 +6,7 @@ namespace DroneApi.Services.Maps
     public class MedicationDto
     {
         [JsonIgnore]
-        public int Id { get; set; } = 0;
+        public int Id { get; set; }
 
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9_-]*$")]
