@@ -11,7 +11,7 @@ namespace DroneApi.Services.Maps
 
         [Required]
         [EnumDataType(typeof(DroneModel))]
-        public string Model { get; set; }
+        public string? Model { get; set; }
 
         [Required]
         [Range(0, 500)]
@@ -22,12 +22,13 @@ namespace DroneApi.Services.Maps
 
         [Required]
         [EnumDataType(typeof(DroneState))]
-        public string State { get; set; }
+        public string? State { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string SerialNumber { get; set; }
+        public string? SerialNumber { get; set; }
 
-       
+        [JsonIgnore]
+        public List<MedicationDto>? Medications { get; set; }
     }
 }
