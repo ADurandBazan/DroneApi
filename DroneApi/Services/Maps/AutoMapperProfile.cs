@@ -17,6 +17,11 @@ namespace DroneApi.Services.Maps
             // Medication -> MedicationDto
             CreateMap<Medication, MedicationDto>();
 
+            // DroneBatteryLogDto -> DroneBatteryLog
+            CreateMap<DroneBatteryLogDto, DroneBatteryLog>();
+            // DroneBatteryLogDto -> DroneBatteryLogDto
+            CreateMap<DroneBatteryLog, DroneBatteryLogDto>();
+
         }
     }
 }
