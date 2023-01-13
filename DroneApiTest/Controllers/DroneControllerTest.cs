@@ -111,5 +111,53 @@ namespace DroneApiTest.Controllers
             result.Should().NotBeNull();
             result.Should().BeOfType(typeof(OkObjectResult));
         }
+        [Fact]
+        public void DroneController_LoadMedicationById_ReturnOK()
+        {
+            //Arrange
+            int id = 1;
+            var medication = A.Fake<MedicationDto>();
+            A.CallTo(() => _droneService.LoadMedicationByIdAsync(id, medication));
+            var controller = new DroneController(_droneService);
+
+            //Act
+            var result = controller.LoadMedicationById(id, medication);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+        [Fact]
+        public void DroneController_LoadMedicationsById_ReturnOK()
+        {
+            //Arrange
+            int id = 1;
+            var medications = A.Fake<ICollection<MedicationDto>>();
+            A.CallTo(() => _droneService.LoadMedicationsByIdAsync(id, medications));
+            var controller = new DroneController(_droneService);
+
+            //Act
+            var result = controller.LoadMedicationsById(id, medications);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
+        [Fact]
+        public void DroneControllerGetBatteryLogs_ReturnOK()
+        {
+            //Arrange
+            int id = 1;
+            var logs = A.Fake<ICollection<DroneBatteryLogDto>>();
+            A.CallTo(() => _droneService.GetBatteryLogsAsync(id));
+            var controller = new DroneController(_droneService);
+
+            //Act
+            var result = controller.GetBatteryLogs(id);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(OkObjectResult));
+        }
     }
 }
