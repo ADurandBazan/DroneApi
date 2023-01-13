@@ -84,7 +84,7 @@ namespace DroneApi.Services.Service
             return null;
         }
 
-        public async Task LoadMedicationById(int id, MedicationDto medicationDto)
+        public async Task LoadMedicationByIdAsync(int id, MedicationDto medicationDto)
         {
             var drone = await _droneRepository.GetDroneByIdAsync(id);
             if (drone == null)
@@ -111,7 +111,7 @@ namespace DroneApi.Services.Service
             }
         }
 
-        public async Task LoadMedicationsById(int id, List<MedicationDto> medicationsDto)
+        public async Task LoadMedicationsByIdAsync(int id, List<MedicationDto> medicationsDto)
         {
             var drone = await _droneRepository.GetDroneByIdAsync(id);
             if (drone == null)
@@ -139,7 +139,19 @@ namespace DroneApi.Services.Service
 
         }
 
+        public async Task<IEnumerable<DroneBatteryLogDto>> GetBatteryLogsAsync(int id)
+        {
+            var drone = await _droneRepository.GetDroneByIdAsync(id);
+            if (drone == null)
+                throw new AppException("Drone not found");
+            else {
+                var logs = drone.Logs;
+                var logsDto = _mapper.Map<List<DroneBatteryLogDto>>(logs);
+                return logsDto;
 
+
+            }
+        }
     }
 }
 

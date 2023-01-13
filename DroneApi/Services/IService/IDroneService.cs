@@ -11,8 +11,9 @@ namespace DroneApi.Services.IService
         Task DeleteDroneAsync(int id);
         Task<IEnumerable<MedicationDto>> GetMedicationsByIdAsync(int id);
         Task<string> GetBatteryCapacityByIdAsync(int id);
-        Task LoadMedicationById(int id, MedicationDto medication);
-        Task LoadMedicationsById(int id, List<MedicationDto> medications);
+        Task LoadMedicationByIdAsync(int id, MedicationDto medication);
+        Task LoadMedicationsByIdAsync(int id, IEnumerable<MedicationDto> medications);
+        Task<IEnumerable<DroneBatteryLogDto>> GetBatteryLogsAsync(int id);
 
     }
 }
