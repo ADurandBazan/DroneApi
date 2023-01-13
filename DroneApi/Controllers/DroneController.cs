@@ -91,20 +91,20 @@ namespace DroneApi.Controllers
         [HttpPost("loadmedication/{id}")]
         public async Task<IActionResult> LoadMedicationById(int id, MedicationDto medicationDto)
         {
-            await _droneService.LoadMedicationById(id, medicationDto);
+            await _droneService.LoadMedicationByIdAsync(id, medicationDto);
             return Ok();
         }
        
         [HttpPost("loadmedicationlist/{id}")]
         public async Task<IActionResult> LoadMedicationsById(int id, IEnumerable<MedicationDto> medications)
         {
-            await _droneService.LoadMedicationsById(id, medications);
+            await _droneService.LoadMedicationsByIdAsync(id, medications);
             return Ok();
         }
         [HttpPost("getbatterylogs/{id}")]
         public async Task<IActionResult> GetBatteryLogs(int id)
         {
-          var logs =  await _droneService.GetBatteryLogsAsync(int id);
+          var logs =  await _droneService.GetBatteryLogsAsync(id);
             return Ok(new { succes = true,
                             logs
             });
