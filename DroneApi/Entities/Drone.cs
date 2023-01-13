@@ -12,6 +12,7 @@ namespace DroneApi.Entities
         public double WeightLimit { get; set; }
         public int BatteryCapacity { get; set; }
         public ICollection<Medication> Medications { get; set; } = new List<Medication>();
+        public ICollection<DroneBatteryLog> Logs { get; set; } = new List<DroneBatteryLog>();
         #endregion
 
         #region Medications
@@ -33,7 +34,6 @@ namespace DroneApi.Entities
             }
 
         }
-
         public virtual void AddMedications(IEnumerable<Medication> medications)
         {
             foreach (var medication in medications)
@@ -41,7 +41,6 @@ namespace DroneApi.Entities
                 AddMedication(medication);
             }
         }
-
         public virtual void RemoveMedication(Medication medication)
         {
             Medications.Remove(medication);
@@ -60,6 +59,45 @@ namespace DroneApi.Entities
         public virtual void RemoveAllMedications()
         {
             Medications.Clear();
+        }
+        #endregion
+
+        #region Logs
+        public virtual void AddLog(DroneBatteryLog log)
+        {
+             if (!Logs.Contains(log))
+             {
+                log.Drone = this;
+                log.DroneId = Id;
+                Logs.Add(log);
+             }
+
+        }
+        public virtual void AddLogs(IEnumerable<DroneBatteryLog> logs)
+        {
+            foreach (var log in logs)
+            {
+                AddLog(log);
+            }
+        }
+        public virtual void RemoveLog(DroneBatteryLog log)
+        {
+            Logs.Remove(log);
+
+
+        }
+        public virtual void RemoveLogs(IEnumerable<DroneBatteryLog> logs)
+        {
+            foreach (var log in logs)
+            {
+                RemoveLog(log);
+
+            }
+
+        }
+        public virtual void RemoveAllLogs()
+        {
+            Logs.Clear();
         }
         #endregion
     }

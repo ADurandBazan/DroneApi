@@ -29,7 +29,12 @@ namespace DroneApi.Repositories
            .HasForeignKey(p => p.DroneId)
            .OnDelete(DeleteBehavior.Cascade);
 
-
+            modelBuilder.Entity<DroneBatteryLog>().Property(e => e.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<DroneBatteryLog>()
+           .HasOne(p => p.Drone)
+            .WithMany(b => b.Logs)
+           .HasForeignKey(p => p.DroneId)
+           .OnDelete(DeleteBehavior.Cascade);
 
 
         }

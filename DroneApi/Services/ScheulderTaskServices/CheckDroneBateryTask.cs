@@ -17,26 +17,27 @@ namespace DroneApi.Services.ScheulderTaskServices
             while (!stoppingToken.IsCancellationRequested)
             {
                 await CheckBatteryAsync();
-                await Task.Delay(120000, stoppingToken);
+                await Task.Delay(5000, stoppingToken);
             }
         }
 
         private async Task CheckBatteryAsync()
         {
             using var scope = _serviceProvider.CreateScope();
-            var logRepository = scope.ServiceProvider.GetRequiredService<IDroneBatteryLogRepository>();
             var droneRepository = scope.ServiceProvider.GetRequiredService<IDroneRepository>();
             var drones = await droneRepository.FindAllDronesAsync();
+           
             foreach (var drone in drones)
             {
-
-                await logRepository.InsertDroneBatteryLogAsync(new DroneBatteryLog
+                drone.AddLog(new DroneBatteryLog
                 {
                     Date = DateTime.Now,
                     BatteryCapacity = drone.BatteryCapacity,
-                    SerialNumber = drone.SerialNumber
-
+                    DroneId = drone.Id,
+                    Drone = drone
                 });
+               
+                await droneRepository.UpdateDroneAsync(drone);
             }
 
         }

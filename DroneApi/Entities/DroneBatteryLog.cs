@@ -5,7 +5,8 @@
         #region Fields
         
         public DateTime Date { get; set; }
-        public string SerialNumber { get; set; }
+        public int DroneId { get; set; }
+        public Drone Drone { get; set; }
         public int BatteryCapacity { get; set; }
         
         #endregion

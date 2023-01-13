@@ -21,7 +21,8 @@ namespace DroneApi.Services.Maps
             // DroneBatteryLogDto -> DroneBatteryLog
             CreateMap<DroneBatteryLogDto, DroneBatteryLog>();
             // DroneBatteryLogDto -> DroneBatteryLogDto
-            CreateMap<DroneBatteryLog, DroneBatteryLogDto>();
+            CreateMap<DroneBatteryLog, DroneBatteryLogDto>()
+                  .ForMember(dst => dst.SerialNumber, src => src.MapFrom(a => a.Drone.SerialNumber));
 
         }
     }

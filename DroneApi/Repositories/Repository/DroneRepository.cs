@@ -33,7 +33,7 @@ namespace DroneApi.Repositories.Repository
 
         public async Task<IEnumerable<Drone>> FindAllDronesAsync(DroneRequestFilter? filter = null)
         {
-            var drones = await _drones.AsQueryable().Include(d => d.Medications).ToListAsync();
+            var drones = await _drones.AsQueryable().Include(d => d.Medications).Include(d => d.Logs).ToListAsync();
             if (filter != null)
             {
                 if (filter.WithMedication.HasValue)

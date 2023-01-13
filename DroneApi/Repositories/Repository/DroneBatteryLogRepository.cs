@@ -33,21 +33,18 @@ namespace DroneApi.Repositories.Repository
 
         public async Task<IEnumerable<DroneBatteryLog>> FindAllDroneBatteryLogsAsync(DroneBatteryLogRequestFilter? filter = null)
         {
-            var logs = await _logs.AsQueryable().ToListAsync();
+            var logs = await _logs.AsQueryable().Include(l => l.Drone).ToListAsync();
             if (filter != null)
             {
                 if (!string.IsNullOrWhiteSpace(filter.SerialNumber))
                 {
 
-                    logs = logs.Where(l => l.SerialNumber.ToLower().Contains(filter.SerialNumber.ToLower())).ToList();
+                    logs = logs.Where(l => l.Drone.SerialNumber.ToLower().Contains(filter.SerialNumber.ToLower())).ToList();
 
                 }
             }
-
             return logs;
         }
-
-
 
         public async Task InsertDroneBatteryLogAsync(DroneBatteryLog log)
         {
