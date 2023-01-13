@@ -18,6 +18,7 @@ namespace DroneApi.Services.ScheulderTaskServices
             {
                 await CheckBatteryAsync();
                 await Task.Delay(5000, stoppingToken);
+               
             }
         }
 
