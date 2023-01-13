@@ -39,7 +39,7 @@ namespace DroneApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(DroneDto droneDto)
+        public async Task<IActionResult> CreateDrone(DroneDto droneDto)
         {
             var drone = await _droneService.InsertDroneAsync(droneDto);
             if (drone != null)
@@ -55,7 +55,7 @@ namespace DroneApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(DroneDto droneDto)
+        public async Task<IActionResult> UpdateDrone(DroneDto droneDto)
         {
             var drone = await _droneService.UpdateDroneAsync(droneDto);
             if (drone != null)
@@ -70,7 +70,7 @@ namespace DroneApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteDrone(int id)
         {
             await _droneService.DeleteDroneAsync(id);
 
