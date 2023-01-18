@@ -111,7 +111,7 @@ namespace DroneApi.Services.Service
             }
         }
 
-        public async Task LoadMedicationsByIdAsync(int id, List<MedicationDto> medicationsDto)
+        public async Task LoadMedicationsByIdAsync(int id, IEnumerable<MedicationDto> medicationsDto)
         {
             var drone = await _droneRepository.GetDroneByIdAsync(id);
             if (drone == null)
