@@ -23,7 +23,7 @@ namespace DroneApiTest.Controllers
         public void DroneController_GetAll_ReturnOK()
         {
             //Arrange
-            var drones = A.Fake<ICollection<DroneDto>>();
+           
             var controller = new DroneController(_droneService);
 
             //Act
